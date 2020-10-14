@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>予測は以下のとおりです</h3>
+output.csv
+<form action='/output/download' method='POST'>
+    <input type='submit' value='download'>
+</form>
+
+{% endblock %}
