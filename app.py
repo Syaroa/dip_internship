@@ -1,12 +1,14 @@
 from flask import *
 import pickle
 import pandas as pd
+import os
 from sklearn import preprocessing
 app = Flask(__name__)
 
 
 @app.route('/')
 def main():
+    os.remove('output.csv')
     return render_template('submit.html')
 
 
