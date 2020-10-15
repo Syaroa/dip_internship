@@ -40,8 +40,10 @@ def do_pred():
 
     # 勤務地最寄駅のカラムをラベルエンコーディングする
     le = pickle.load(open('labelencoder.pkl', 'rb'))
-    test_x['勤務地\u3000最寄駅1（駅名）'] = le.transform(test_x.loc[:,'勤務地\u3000最寄駅1（駅名）'].values)
-
+    try:
+        test_x['勤務地\u3000最寄駅1（駅名）'] = le.transform(test_x.loc[:,'勤務地\u3000最寄駅1（駅名）'].values)
+    except:
+        return render_template('error.html')
     #学習済みモデルをロード
     model = pickle.load(open('trained_model.pkl', 'rb'))
     predicted = model.predict(test_x)
