@@ -14,7 +14,11 @@ def main():
 def do_pred():
     # 送信されたファイルを取得
     send_data = request.files['send_data']
-    test_x = pd.read_csv(send_data)
+    try:
+        test_x = pd.read_csv(send_data)
+    except:
+        return render_template('error.html')
+    
     idx = test_x['お仕事No.']
     # 勤務開始時刻、勤務終了時刻を計算
     test_x['start_time'] = test_x['期間・時間\u3000勤務時間'].str[:2].str.strip(':').astype(int)
