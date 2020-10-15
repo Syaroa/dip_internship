@@ -24,7 +24,7 @@ def do_pred():
         return render_template('error.html')
     
     # 予測ファイルを作成
-    cols = ['お仕事No.\n', '応募数 合計\n']
+    cols = ['お仕事No.', '応募数 合計']
     idx = test_x['お仕事No.']
     submit = pd.DataFrame(index=[], columns=cols)
     submit['お仕事No.'] = idx
@@ -62,7 +62,7 @@ def do_pred():
     model = pickle.load(open('trained_model.pkl', 'rb'))
     predicted = model.predict(test_x)
     #submit['応募数 合計'] = predicted
-    submit.to_csv('output.csv', index=False)
+    submit.to_csv('output.csv', index=False, header=False)
     return render_template('output.html')
 
 
