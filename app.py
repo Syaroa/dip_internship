@@ -23,7 +23,10 @@ def do_pred():
     except:
         return render_template('error.html')
     
+    # 予測ファイルを作成
     idx = test_x['お仕事No.']
+    submit = pd.DataFrame()
+    submit['お仕事No.'] = idx
     # 勤務開始時刻、勤務終了時刻を計算
     try:
         test_x['start_time'] = test_x['期間・時間\u3000勤務時間'].str[:2].str.strip(':').astype(int)
@@ -57,8 +60,6 @@ def do_pred():
     #学習済みモデルをロード
     model = pickle.load(open('trained_model.pkl', 'rb'))
     predicted = model.predict(test_x)
-    submit = pd.DataFrame()
-    submit['お仕事No.'] = idx
     submit['応募数 合計'] = predicted
     submit.to_csv('output.csv', index=False)
     return render_template('output.html')
