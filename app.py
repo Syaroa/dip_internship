@@ -24,7 +24,7 @@ def do_pred():
         return render_template('error.html')
     
     # 予測ファイルを作成
-    cols = ['お仕事No.', '応募数 合計']
+    cols = ['お仕事No.\n', '応募数 合計\n']
     idx = test_x['お仕事No.']
     submit = pd.DataFrame(index=[], columns=cols)
     submit['お仕事No.'] = idx
