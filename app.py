@@ -8,7 +8,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def main():
-    os.remove('output.csv')
+    if(os.path.exists('output.csv')):
+        os.remove('output.csv')
     return render_template('submit.html')
 
 
