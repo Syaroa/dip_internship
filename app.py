@@ -32,6 +32,12 @@ def do_pred():
     test_x['end_time'] = test_x['期間・時間\u3000勤務時間'].str.extract('〜(\d{1,2}:\d{2})', expand=False)
     test_x['end_time'] = test_x['end_time'].str[:2]
     test_x['end_time'] = test_x['end_time'].str.strip(':').astype(int)
+    test_x['start_time'] = test_x['start_time'].replace({0: 24})
+    test_x['end_time'] = test_x['end_time'].replace({0: 24})
+    test_x['job_time'] = test_x['end_time'] - test_x['start_time']
+
+    #勤務時間0を24に変更
+    test_x['job_time'] = test_x['job_time'].replace({0:24})
 
     # 予測に使用するカラムを抽出
     try:
