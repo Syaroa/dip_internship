@@ -68,6 +68,8 @@ def do_pred():
     submit = pd.DataFrame()
     submit['お仕事No.'] = idx
     submit['応募数 合計'] = predicted
+    #予測が0未満のときに0にする
+    submit['応募数 合計'] = submit['応募数 合計'].apply(lambda x : 0 if x < 0 else x)
     submit.to_csv('output.csv', index=False)
     return render_template('output.html')
 
