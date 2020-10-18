@@ -22,13 +22,15 @@ def do_pred():
         test_x = pd.read_csv(send_data)
         idx = test_x['お仕事No.']
     except:
-        return render_template('error.html')
+        message = 'csvファイルを送信してください'
+        return render_template('error.html', message=message)
 
     # 勤務開始時刻、勤務終了時刻を計算
     try:
         test_x['start_time'] = test_x['期間・時間\u3000勤務時間'].str[:2].str.strip(':').astype(int)
     except:
-        return render_template('error.html')
+        message = 'csvファイルの形式を確認してください(勤務時間のカラムがありません)'
+        return render_template('error.html', message=message)
     test_x['end_time'] = test_x['期間・時間\u3000勤務時間'].str.extract('〜(\d{1,2}:\d{2})', expand=False)
     test_x['end_time'] = test_x['end_time'].str[:2]
     test_x['end_time'] = test_x['end_time'].str.strip(':').astype(int)
@@ -51,7 +53,8 @@ def do_pred():
                         'end_time', '給与/交通費\u3000交通費', '残業月20時間未満', '服装自由',
                         'job_time','会社概要\u3000業界コード','Excelのスキルを活かす','平日休みあり']]
     except:
-        return render_template('error.html')
+        message = 'csvファイルの形式を確認してください(必要なカラムがありません)'
+        return render_template('error.html', message=message)
 
 
     # 勤務地最寄駅のカラムをラベルエンコーディングする
@@ -59,7 +62,8 @@ def do_pred():
     try:
         test_x['勤務地\u3000最寄駅1（駅名）'] = le.transform(test_x.loc[:,'勤務地\u3000最寄駅1（駅名）'].values)
     except:
-        return render_template('error.html')
+        message = 'データに無効な駅名が含まれています'
+        return render_template('error.html', message=message)
 
     #学習済みモデルをロード
     model = pickle.load(open('trained_model.pkl', 'rb'))
