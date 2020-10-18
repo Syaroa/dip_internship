@@ -1,0 +1,13 @@
+.header {
+    background-color: #00FA9A	;
+    height: 45px;
+    font-family:'メイリオ', 'Meiryo', sans-serif;
+  }
+
+body {
+    font-family:'メイリオ', 'Meiryo', sans-serif;
+  }
+
+p {
+    color: red;
+}
